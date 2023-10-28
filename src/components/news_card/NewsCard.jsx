@@ -17,7 +17,10 @@ const NewsCard = ({ news }) => {
     }}>
       <CardHeader className="overflow-hidden md:max-w-xs max-h-56 p-0 rounded-xl md:ml-3 md:my-auto" >
         <div className="m-auto">
-          <Image src={news.multimedia.length > 0 ? `${IMAGE_BASE_URL}/${news.multimedia[0].url}` : error} className="object-cover object-center" />
+          <Image src={news.multimedia.length > 0 ? `${IMAGE_BASE_URL}/${news.multimedia[0].url}` : error} fallbackSrc={error} classNames={{
+            img: "md:w-[320px] min-w-[400px] h-[224px] object-cover object-center",
+            wrapper: "bg-no-repeat bg-cover bg-center h-[224px]"
+          }} />
         </div>
       </CardHeader>
       <CardBody className="flex justify-center ">
@@ -30,7 +33,9 @@ const NewsCard = ({ news }) => {
           <p>{date}</p>
         </div>
         <div>
-          <Link href={news.web_url} onClick={() => console.log(news)} as='h1' isExternal showAnchorIcon className=" text-default-foreground font-bold text-xl my-2">{news.headline.main}</Link>
+          <Link href={news.web_url} isExternal showAnchorIcon className="text-default-foreground font-bold text-xl my-2">
+            <h1>{news.headline.main}</h1>
+          </Link>
           <p>{news.abstract}</p>
         </div>
       </CardBody>

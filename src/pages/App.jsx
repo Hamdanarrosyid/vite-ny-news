@@ -30,18 +30,17 @@ function App() {
   }
 
   const handleClickPagination = (v) => {
-    const c = searchParams.entries()
-    for (let entry of c) {
-      console.log(entry)
-    }
+    // eslint-disable-next-line no-unused-vars
+    const _ = searchParams.entries()
     setSearchParams(() => ({ searchQuery: searchParams.get('searchQuery') ?? '', pageIndex: v }))
     setPageIndex(v)
   }
 
   useEffect(() => {
-    setPageIndex(searchParams.get('pageIndex') ?? 1)
-    const q = searchParams.get('searchQuery') != '' ? `headline:("${searchParams.get('searchQuery')}")` : ''
+    const page = searchParams.get('pageIndex') ?? 1
+    const q = searchParams.get('searchQuery') != '' && searchParams.get('searchQuery') != null ? `headline:("${searchParams.get('searchQuery')}")` : ''
     setSearch(q)
+    setPageIndex(parseInt(page))
     if (!isLoading && !error) {
       setDataState(data.response.docs)
       setPageTotal(data.response.meta.hits >= 200 ? 200 : data.response.docs.length <= 10 ? 1 : data.response.meta.hits)
@@ -51,7 +50,7 @@ function App() {
   return (
     <Layout>
       {/* Jumbotron */}
-      <div className="relative bg-[url('./src/assets/ny-city.jpg')] h-40 bg-center bg-no-repeat flex justify-center items-center rounded-lg overflow-hidden">
+      <div className="relative bg-jumbotron-search h-40 bg-center bg-no-repeat flex justify-center items-center rounded-lg overflow-hidden">
         <div className="absolute bg-gradient-to-t from-black h-full w-full opacity-50 z-0"></div>
         <div className="z-10 bg-white w-full mx-5 rounded-xl overflow-hidden">
           <SearchBar onSearchCLick={handleSearchClick} />
@@ -71,16 +70,21 @@ function App() {
             <div className="flex justify-center">
               <p>Data is empty</p>
             </div>
-          ) : dataState?.map(val => (
-            <NewsCard news={val} key={val._id} />
-          ))
+          ) : (
+            <>
+              {dataState?.map(val => (
+                <NewsCard news={val} key={val._id} />
+              ))}
+              <Spacer y={4} />
+              {/* pagination */}
+              <div className="flex justify-end">
+                <Pagination total={pageTotal} page={pageIndex} initialPage={1} onChange={handleClickPagination} />
+              </div>
+            </>
+          )
         }
       </div>
-      <Spacer y={4} />
-      {/* pagination */}
-      <div className="flex justify-end">
-        <Pagination total={pageTotal} initialPage={pageIndex} onChange={handleClickPagination} />
-      </div>
+
     </Layout>
   )
 }
