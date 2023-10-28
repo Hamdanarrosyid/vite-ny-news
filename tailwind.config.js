@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'jumbotron-search': "url('./src/assets/ny-city.jpg')"
+        'jumbotron-search': "url('./src/assets/nycity.png')"
       }
     },
   },

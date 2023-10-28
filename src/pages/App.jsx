@@ -7,6 +7,7 @@ import NewsCardSkeleton from "../components/news_card/NewsCardSkeleton"
 import { useEffect, useState } from "react"
 import NewsCard from "../components/news_card/NewsCard"
 import { useSearchParams } from "react-router-dom"
+import nycityimage from "../assets/nycity.png"
 
 function App() {
   const [dataState, setDataState] = useState(null)
@@ -50,7 +51,7 @@ function App() {
   return (
     <Layout>
       {/* Jumbotron */}
-      <div className="relative bg-jumbotron-search h-40 bg-center bg-no-repeat flex justify-center items-center rounded-lg overflow-hidden">
+      <div style={{backgroundImage: `url("${nycityimage}")`}} className="relative h-40 bg-center bg-no-repeat flex justify-center items-center rounded-lg overflow-hidden">
         <div className="absolute bg-gradient-to-t from-black h-full w-full opacity-50 z-0"></div>
         <div className="z-10 bg-white w-full mx-5 rounded-xl overflow-hidden">
           <SearchBar onSearchCLick={handleSearchClick} />
