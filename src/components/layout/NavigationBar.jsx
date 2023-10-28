@@ -1,4 +1,4 @@
-import { Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import { Button, Link, Navbar, NavbarBrand, NavbarContent } from "@nextui-org/react"
 import { useTheme } from "next-themes"
 import { BsFillMoonFill,BsSunFill } from 'react-icons/bs'
 
@@ -10,14 +10,6 @@ const NavigationBar = () => {
                 <NavbarBrand className="mr-4">
                     <Link href="/" className="font-bold text-inherit">NY News</Link>
                 </NavbarBrand>
-                <NavbarContent className="hidden sm:flex gap-3">
-                    <NavbarItem>
-                        <Link color="foreground" href="/">
-                            Home
-                        </Link>
-                    </NavbarItem>
-
-                </NavbarContent>
             </NavbarContent>
 
             <NavbarContent as="div" className="items-center" justify="end">
